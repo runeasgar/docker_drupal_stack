@@ -1,8 +1,6 @@
 FROM ubuntu
 MAINTAINER Joshua Taylor
 
-# TODO: Apache allow override, webmin, phpmyadmin?
-
 # Install ubuntu packages
 RUN /bin/bash -c 'apt-get update && apt-get install wget vim curl git php5 libapache2-mod-php5 php5-mcrypt php5-gd php5-mysqlnd -y'
 
