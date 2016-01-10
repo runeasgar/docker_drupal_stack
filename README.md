@@ -19,6 +19,7 @@
 This repo is for building docker images that include all the basics of Drupal 8 hosting: Varnish, Apache, MySQL. It also includes phpmyadmin, webmin, git, drush, and Drupal console.
 
 To use this:
+
 1. Install docker and docker compose.
 2. Clone this repository.
 3. While in the newly cloned repo directory, run: docker-compose up
