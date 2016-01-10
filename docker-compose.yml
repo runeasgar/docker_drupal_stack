@@ -1,0 +1,7 @@
+drupal:
+  build: ./drupal
+  ports:
+    - "8080:80"
+  volumes:
+    - ./drupal/var-www/:/var/www/
+  
