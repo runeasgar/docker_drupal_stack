@@ -3,9 +3,10 @@
 **WORK IN PROGRESS**
 
 ## Todo 
-* Composer networking
 * Drupal service
   * Apache allow override
+  * Move sites-enabled to a volume
+  * Change var-www to just www (silly me)
   * webmin
   * phpmyadmin?
 * MySQL service 
