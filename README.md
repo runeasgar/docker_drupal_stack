@@ -1,6 +1,6 @@
 # drupal_stack
 
-**WORK IN PROGRESS - CURRENTLY ONLY SPINS UP WEB SERVER**
+**WORK IN PROGRESS**
 
 ## Todo 
 * Composer networking
