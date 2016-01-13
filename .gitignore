@@ -1,2 +1,3 @@
-web/var-www/*
+web/www/*
 mysql/data/*
+mysql/.env

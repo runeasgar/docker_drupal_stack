@@ -1,26 +1,30 @@
-# drupal_stack
+# docker_drupal_stack
 
 **WORK IN PROGRESS**
 
-## Todo 
-* Drupal service
-  * Apache allow override
-  * Move sites-enabled to a volume
-  * Change var-www to just www (silly me)
-  * webmin
-  * phpmyadmin?
-* MySQL service 
-  * allow user to specify root password as part of composer up command
-
 ## About
-This repo is for building docker images that include all the basics of Drupal 8 hosting: Varnish, Apache, MySQL. It also includes phpmyadmin, webmin, git, drush, and Drupal console.
+This repo is for building docker images that include all the basics of Drupal 8 hosting: Varnish, Web (Apache), MySQL. It also includes, vim, git, drush, and Drupal console.
 
 To use this:
 
-1. Install docker and docker compose.
+1. Install [docker](https://docs.docker.com/engine/installation/) and [docker compose](https://docs.docker.com/compose/install/).
 2. Clone this repository.
-3. While in the newly cloned repo directory, run: docker-compose --x-networking up -d
+3. Change directory to the repo.
+4. (OPTIONAL) Load your Drupal codebase into `./web/www/html` (e.g. ./www/html/index.php).
+4. Run `echo 'MYSQL_ROOT_PASSWORD=whatever' > .env`, replacing 'whatever' with the MySQL root password you want.
+5. While in the newly cloned repo directory, run `docker-compose --x-networking up -d`.
 
-You can then access the default site on port 80 (Varnish) or port 8080 (Apache) on the host machine.
+When this is finished running, you will have 3 containers, each running a server: Varnish, Web (Apache), and MySQL. They are all networked together. Varnish will be exposed over port 80 on your host (e.g., http://localhost), Apache over port 8080 (e.g., http://localhost:8080).
 
-You can manage files in Apache's /var/www directory by going to the var-www directory in the repo.
+* If you opted out of step 4, the stack will serve a simple PHP script that will output the message "Apache and PHP set up.". 
+* MySQL will not have any databases set up - you'll need to do that yourself. 
+* You can manage all your website code from the repository's web/www directory (which corresponds to /var/www in the web container).
+
+## Improvements for the future
+* Web service
+  * Apache will allow .htaccess overrides in /var/www.
+  * The web's sites-enabled directory will be mapped to a volume so it is preserved when the web is recreated.
+  * webmin to manage your sites, databases, etc..
+    * Maybe phpmyadmin if it ends up being warranted.
+* MySQL service
+  * allow user to specify root password as part of composer up command

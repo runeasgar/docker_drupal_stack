@@ -4,7 +4,7 @@ web:
   ports:
     - "8080:80"
   volumes:
-    - ./web/var-www/:/var/www/
+    - ./web/www/:/var/www/
 varnish:
   build: ./varnish
   container_name: drupal_varnish
@@ -15,5 +15,4 @@ mysql:
   container_name: drupal_mysql
   volumes:
     - ./mysql/data:/var/lib/mysql
-  environment:
-    MYSQL_ROOT_PASSWORD: 'drupalmysqlpass'
+  env_file: ./mysql/.env
