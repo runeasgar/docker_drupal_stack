@@ -5,6 +5,7 @@ web:
     - "8080:80"
   volumes:
     - ./web/www/:/var/www/
+    - ./web/sites-enabled/:/etc/apache2/sites-enabled/
 varnish:
   build: ./varnish
   container_name: drupal_varnish

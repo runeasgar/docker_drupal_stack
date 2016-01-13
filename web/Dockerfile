@@ -17,7 +17,7 @@ RUN /bin/bash -c 'a2enmod rewrite'
 EXPOSE 80
 
 # Add default files
-ADD .gitconfig /root/.gitconfig
+ADD ./.gitconfig /root/.gitconfig
 
 # Set the working directory for sake of organization
 WORKDIR /var/www

@@ -1,30 +1,27 @@
 # docker_drupal_stack
 
-**WORK IN PROGRESS**
-
 ## About
-This repo is for building docker images that include all the basics of Drupal 8 hosting: Varnish, Web (Apache), MySQL. It also includes, vim, git, drush, and Drupal console.
+This repository is a WORK IN PROGRESS. It is intended to launch a set of Docker containers that comprise all the basics of Drupal 8 hosting: Varnish, Web (Apache), MySQL. It also includes, vim, git, drush, and Drupal console.
 
-To use this:
+## Using this repo
+1. Install [docker](https://docs.docker.com/engine/installation/) and [docker compose](https://docs.docker.com/compose/install/), clone this repository, and change into the repository directory.
+2. (OPTIONAL) Load your Drupal codebase into `web/www/html` (e.g. web/www/html/index.php).
+3. Run `echo 'MYSQL_ROOT_PASSWORD=whatever' > .env`, replacing 'whatever' with the MySQL root password you want. If you ever remove this file, the next time Docker attempts to recreate the web container, it will fail.
+4. While in the newly cloned repo directory, run `docker-compose --x-networking up -d`.
 
-1. Install [docker](https://docs.docker.com/engine/installation/) and [docker compose](https://docs.docker.com/compose/install/).
-2. Clone this repository.
-3. Change directory to the repo.
-4. (OPTIONAL) Load your Drupal codebase into `./web/www/html` (e.g. ./www/html/index.php).
-4. Run `echo 'MYSQL_ROOT_PASSWORD=whatever' > .env`, replacing 'whatever' with the MySQL root password you want.
-5. While in the newly cloned repo directory, run `docker-compose --x-networking up -d`.
+When this is finished running, you will have 3 networked containers, each running a service: Varnish (port 80 on host), Web (Apache, port 8080 on host), and MySQL. If you opted out of step 4, you'll just get a simple message indicating successful set up.
 
-When this is finished running, you will have 3 containers, each running a server: Varnish, Web (Apache), and MySQL. They are all networked together. Varnish will be exposed over port 80 on your host (e.g., http://localhost), Apache over port 8080 (e.g., http://localhost:8080).
-
-* If you opted out of step 4, the stack will serve a simple PHP script that will output the message "Apache and PHP set up.". 
-* MySQL will not have any databases set up - you'll need to do that yourself. 
-* You can manage all your website code from the repository's web/www directory (which corresponds to /var/www in the web container).
+## Next steps
+Once your containers are all running, you can:
+* Manage your Apache virtual hosts in the repository directory at `web/sites-enabled`.
+* Manage the contents of `/var/www` on your web in the repository directory at `web/www`. The default site is in `web/www/html`.
+* Create MySQL databases needed by your Drupal site(s).
 
 ## Improvements for the future
-* Web service
-  * Apache will allow .htaccess overrides in /var/www.
-  * The web's sites-enabled directory will be mapped to a volume so it is preserved when the web is recreated.
-  * webmin to manage your sites, databases, etc..
-    * Maybe phpmyadmin if it ends up being warranted.
-* MySQL service
-  * allow user to specify root password as part of composer up command
+* Apache will allow .htaccess overrides in /var/www.
+* webmin to manage your sites, databases, etc..
+  * Maybe phpmyadmin if it ends up being warranted.
+
+## Known problems
+* Loading the MySQL root password into a file on the Docker host is far from ideal.
+* Loading Apache's 000-default.conf file into the web as a part of the repo decouples it from potential (albeit unlikely) apache2 updates.
