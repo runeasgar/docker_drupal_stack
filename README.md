@@ -18,10 +18,9 @@ Once your containers are all running, you can:
 * Create MySQL databases needed by your Drupal site(s).
 
 ## Improvements for the future
-* Apache will allow .htaccess overrides in /var/www.
 * webmin to manage your sites, databases, etc..
   * Maybe phpmyadmin if it ends up being warranted.
 
 ## Known problems
 * Loading the MySQL root password into a file on the Docker host is far from ideal.
-* Loading Apache's 000-default.conf file into the web as a part of the repo decouples it from potential (albeit unlikely) apache2 updates.
+* Loading Apache's apache2.conf and 000-default.conf files into the web from the repo decouples it from potential (albeit unlikely) apache2 updates.
