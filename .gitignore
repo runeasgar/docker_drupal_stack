@@ -1,4 +1,3 @@
 web/www/*
-web/sites-enabled/
 mysql/data/*
 mysql/.env
