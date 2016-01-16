@@ -24,8 +24,12 @@ Once your containers are all running, you can:
 ** If you want to disable the default site, move /etc/apache2/sites-enabled/0000-default.conf to sites-available. Do NOT remove /var/www/html - it will mess up the entrypoint.sh script.
 
 ## Improvements for the future
+* Switch to PHP-FPM?
+* Logging service
+* Memcache, once Drupal 8 supports it
 * webmin to manage your sites, databases, etc..
   * Maybe phpmyadmin if it ends up being warranted.
 
 ## Known problems
+* MAJOR: Varnish *probably* isn't working right. I need to test it and put more detail into the default VCL.
 * MODERATE: Because I'm explicitly naming containers (e.g., to enable Varnish to talk to Apache), you can't spin up more than one of these stacks on a docker host. Aside from being an inconvenience to end-users, it's also annoying for my testing purposes.
