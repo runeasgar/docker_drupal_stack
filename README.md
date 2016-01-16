@@ -19,9 +19,9 @@ When this is finished running, you will have 3 networked containers, each runnin
 ## Next steps
 Once your containers are all running, you can:
 * Set up Drupal 8, which is pre-installed for you. The code is at /var/www/, and is served as the default site.
-* Don't forget to [create MySQL databases](https://www.drupal.org/documentation/install/create-database#mysql_commands) needed by your Drupal sites (including the pre-installed site). You'll need to create MySQL users `@'%'` because Drupal will connect from the IP of the web, not MySQL. The MySQL host will be `drupal_mysql`.
+* Don't forget to [create MySQL databases](https://www.drupal.org/documentation/install/create-database#mysql_commands) needed by your Drupal sites (including the pre-installed site). You'll need to create MySQL users `@'%'` because Drupal will connect from the IP of the web, not MySQL.
 * [Manage](https://help.ubuntu.com/lts/serverguide/httpd.html) your Apache server to create additional sites.
-** If you want to disable the default site, move /etc/apache2/sites-enabled/0000-default.conf to sites-available. Do NOT remove /var/www/html - it will mess up the entrypoint.sh script.
+  * If you want to disable the default site, move /etc/apache2/sites-enabled/0000-default.conf to sites-available. Do NOT remove /var/www/html - it will mess up the entrypoint.sh script.
 
 ## Improvements for the future
 * Switch to PHP-FPM?
