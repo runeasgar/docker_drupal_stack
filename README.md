@@ -11,7 +11,6 @@ This repository is a work in progress, but I feel it is working well enough for 
 
 When this is finished running, you will have 3 networked containers, each running a service: 
 * Varnish with the hostname `drupal_varnish`, accessible via port 80 on docker host. 
-  * If you opted out of step 3 above, you'll just get a simple message indicating successful set up.
 * Apache with the hostname `drupal_web`, accessible via port 8080 on the docker host.
 * MySQL with the hostname `drupal_mysql`, accessible via port 3306 to the other two containers.
   * `drupal_mysql` is also the MySQL server address you'll supply to Drupal installations.
