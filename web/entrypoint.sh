@@ -14,16 +14,11 @@ rm -r ./html
 mv /root/drupal ./html
 shopt -u dotglob
 
-# Settings.php and default files stuff - this really shouldn't be needed! How can I fix that?
-#cp /var/www/html/sites/default/default.settings.php /var/www/html/sites/default/settings.php
-#chmod g+w /var/www/html/sites/default/settings.php
-#chmod g+w /var/www/html/sites/default
-
 # Set proper Apache permissions
 chown -R root:www-data .
 chmod -R g+s .
 
-# Set proper Drupal permissions
+# Set proper Drupal permissions for the default site
 cd /var/www/html
 find . -type d -exec chmod u=rwx,g=rx,o= '{}' \;
 find . -type f -exec chmod u=rw,g=r,o= '{}' \;
