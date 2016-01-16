@@ -31,3 +31,4 @@ Once your containers are all running, you can:
 * MODERATE: Loading Apache's apache2.conf and 000-default.conf files into the web from the repo decouples it from potential (albeit unlikely) apache2 updates.
 * ???: I'm noticing that git isn't capturing some necessary empty directories. I'm not sure how docker would react to these not being there.
 * MODERATE: Because I'm explicitly naming containers (e.g., to enable Varnish to talk to Apache), you can't spin up more than one of these stacks on a docker host. Aside from being an inconvenience to end-users, it's also annoying for my testing purposes.
+* MODERATE: Evidently the way I have Apache/PHP set up [prevents the settings.php file from being created automatically](https://www.drupal.org/documentation/install/settings-file).

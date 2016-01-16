@@ -19,11 +19,20 @@ RUN /bin/bash -c 'curl https://drupalconsole.com/installer -L -o drupal.phar && 
 # Enable Apache mods
 RUN /bin/bash -c 'a2enmod rewrite'
 
+# Install Drupal - on its own to be a cached layer
+RUN /bin/bash -c 'drush dl drupal'
+
+# Move Drupal install to html
+# This is a bit tricky because of a problem in AUFS: https://github.com/docker/docker/issues/4570
+RUN /bin/bash -c 'shopt -s dotglob && rm -r html && mv drupal-8.*.* html && shopt -u dotglob'
+
+# Settings.php file needs to be created, apparently because I am not running Apache/PHP properly
+RUN /bin/bash -c 'cp html/sites/default/default.settings.php html/sites/default/settings.php && chmod g+w html/sites/default/settings.php'
+
 # Set proper Apache permissions
-RUN /bin/bash -c 'chown -R root:www-data /var/www && chmod -R g+s /var/www && chmod g+w /var/www/html/sites/default && rm /var/www/html/index.html'
+RUN /bin/bash -c 'chown -R root:www-data /var/www && chmod -R g+s /var/www && chmod g+w /var/www/html/sites/default'
 
 # Add default files
-ADD ./www/html/* /var/www/html/
 ADD ./apache2.conf /etc/apache2/apache2.conf
 ADD ./.gitconfig /root/.gitconfig
 
