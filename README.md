@@ -29,4 +29,3 @@ Once your containers are all running, you can:
 
 ## Known problems
 * MODERATE: Because I'm explicitly naming containers (e.g., to enable Varnish to talk to Apache), you can't spin up more than one of these stacks on a docker host. Aside from being an inconvenience to end-users, it's also annoying for my testing purposes.
-* MODERATE: Evidently the way I have Apache/PHP set up [prevents the settings.php file from being created automatically](https://www.drupal.org/documentation/install/settings-file). I'm creating the settings.php file and giving it write permissions as a part of my web build. Users have to fix its permissions after the Drupal install.
