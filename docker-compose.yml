@@ -15,6 +15,6 @@ mysql:
   image: mysql
   container_name: drupal_mysql
   volumes:
-    - ./mysql/data:/var/lib/mysql
+    - /var/lib/mysql
   environment:
-    - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    - MYSQL_ROOT_PASSWORD
