@@ -3,10 +3,10 @@ web:
   container_name: drupal_web
   ports:
     - "8080:80"
-  volumes: 
-    - /var/www
-    - /etc/apache2/sites-enabled
-    - /etc/apache2/site-available
+  volumes:
+    - drupal_web_var-www:/var/www
+    - drupal_web_etc-apache2-sites_enabled:/etc/apache2/sites-enabled
+    - drupal_web_etc-apache2-sites_available:/etc/apache2/site-available
 varnish:
   build: ./varnish
   container_name: drupal_varnish
@@ -18,4 +18,4 @@ mysql:
   environment:
     - MYSQL_ROOT_PASSWORD
   volumes: 
-    - /var/lib/mysql
+    - drupal_mysql_var-lib-mysql:/var/lib/mysql
