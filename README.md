@@ -10,11 +10,11 @@ This repository is a work in progress, but I feel it is working well enough for 
 3. While in the newly cloned repo directory, run `docker-compose --x-networking up -d`.
 
 When this is finished running, you will have 4 networked containers, each running a service: 
-* Varnish with the hostname `drupal_varnish`, accessible via port 80 on docker host. 
-* Apache with the hostname `drupal_web`, accessible via port 8080 on the docker host.
-* PHP-FPM with the hostname `drupal_php_fpm`, accessible via port 9000 to the other two containers.
-* MySQL with the hostname `drupal_mysql`, accessible via port 3306 to the other two containers.
-  * `drupal_mysql` is also the MySQL server address you'll supply to Drupal installations.
+* Varnish with the hostname `drupal_varnish_1`, accessible via port 80 on docker host. 
+* Apache with the hostname `drupal_web_1`, accessible via port 8080 on the docker host.
+* PHP-FPM with the hostname `drupal_php_fpm_1`, accessible via port 9000 to the other two containers.
+* MySQL with the hostname `drupal_mysql_1`, accessible via port 3306 to the other two containers.
+  * `drupal_mysql_1` is also the MySQL server address you'll supply to Drupal installations.
 
 ## Next steps
 Once your containers are all running, you can:
@@ -34,4 +34,3 @@ Once your containers are all running, you can:
 
 ## Known problems
 * ???: I think I have some order of operations issue with Varnish failing to run because the Web hasn't started apache yet. I'll troubleshoot this.
-* MODERATE: Because I'm explicitly naming containers (e.g., to enable Varnish to talk to Apache), you can't spin up more than one of these stacks on a docker host. Aside from being an inconvenience to end-users, it's also annoying for my testing purposes.

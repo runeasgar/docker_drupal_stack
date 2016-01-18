@@ -1,25 +1,21 @@
-php_fpm:
-  build: ./php_fpm
-  container_name: drupal_php_fpm
-  volumes:
-    - drupal_web_var-www:/var/www
 web:
   build: ./web
-  container_name: drupal_web
   ports:
     - "8080:80"
   volumes:
     - drupal_web_var-www:/var/www
     - drupal_web_etc-apache2-sites_enabled:/etc/apache2/sites-enabled
     - drupal_web_etc-apache2-sites_available:/etc/apache2/site-available
+php_fpm:
+  build: ./php_fpm
+  volumes:
+    - drupal_web_var-www:/var/www
 varnish:
   build: ./varnish
-  container_name: drupal_varnish
   ports:
     - "80:80"
 mysql:
   image: mysql
-  container_name: drupal_mysql
   environment:
     - MYSQL_ROOT_PASSWORD
   volumes: 
