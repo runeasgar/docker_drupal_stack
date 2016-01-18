@@ -23,6 +23,8 @@ Once your containers are all running, you can:
   * If you want to disable the default site, move /etc/apache2/sites-enabled/0000-default.conf to sites-available. Do NOT remove /var/www/html - it will mess up the entrypoint.sh script.
 
 ## Improvements for the future
+* Better use of Dockerfile and docker-compose.yml options.
+* Ability to override some things using arguments (on build).
 * Switch to PHP-FPM?
 * Logging service
 * Memcache, once Drupal 8 supports it
