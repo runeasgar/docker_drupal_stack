@@ -1,3 +1,6 @@
+php_fpm:
+  build: ./php_fpm
+  container_name: drupal_php_fpm
 web:
   build: ./web
   container_name: drupal_web
