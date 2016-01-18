@@ -1,6 +1,8 @@
 php_fpm:
   build: ./php_fpm
   container_name: drupal_php_fpm
+  volumes:
+    - drupal_web_var-www:/var/www
 web:
   build: ./web
   container_name: drupal_web

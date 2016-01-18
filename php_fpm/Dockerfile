@@ -5,7 +5,7 @@ MAINTAINER Joshua Taylor
 EXPOSE 9000
 
 # Download required ubuntu packages
-RUN /bin/bash -c 'apt-get update && apt-get install php5-fpm -y'
+RUN /bin/bash -c 'apt-get update && apt-get install php5-fpm php5-mcrypt php5-gd php5-mysqlnd -y'
 
 # Set the FPM server to listen for remote connections
 RUN /bin/bash -c 'sed -i "s|listen = /var/run/php5-fpm.sock|listen = 0.0.0.0:9000|" /etc/php5/fpm/pool.d/www.conf'
