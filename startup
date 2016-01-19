@@ -1,0 +1,5 @@
+#!/bin/bash
+docker-compose --x-networking up -d mysql
+docker-compose --x-networking up -d php_fpm
+docker-compose --x-networking up -d web
+docker-compose --x-networking up -d varnish
