@@ -7,7 +7,7 @@ This repository is a work in progress, but I feel it is working well enough for 
 1. Install [docker](https://docs.docker.com/engine/installation/) and [docker compose](https://docs.docker.com/compose/install/), clone this repository, and change into the repository directory.
 2. Run `export MYSQL_ROOT_PASSWORD=whatever`.
   * It's important to note that MySQL will store this password as a part of its database(s), in a docker volume (mysql/data on the host). Hence, rebuilding or recreating the MySQL container will not affect this password - not even if you change this environment variable.
-3. While in the newly cloned repo directory, run `docker-compose --x-networking up -d`.
+3. While in the newly cloned repo directory, run `docker-compose -p drupal --x-networking up -d`.
 
 When this is finished running, you will have 4 networked containers, each running a service: 
 * Varnish with the hostname `drupal_varnish_1`, accessible via port 80 on docker host. 
