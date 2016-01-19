@@ -24,13 +24,4 @@ Once your containers are all running, you can:
 * [Manage](https://help.ubuntu.com/lts/serverguide/httpd.html) your Apache server to create additional sites.
   * If you want to disable the default site, move /etc/apache2/sites-enabled/0000-default.conf to sites-available. Do NOT remove /var/www/html - it will mess up the entrypoint.sh script.
 
-## Improvements for the future
-* Better use of Dockerfile and docker-compose.yml options.
-* Ability to override some things using arguments (on build).
-* Logging service
-* Memcache, once Drupal 8 supports it
-* webmin to manage your sites, databases, etc..
-  * Maybe phpmyadmin if it ends up being warranted.
-
-## Known problems
-* ???: I think I have some order of operations issue with Varnish failing to run because the Web hasn't started apache yet. I'll troubleshoot this.
+See the "Issues" tab for a list of known issues and future improvements.
