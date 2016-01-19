@@ -1,21 +1,30 @@
 web:
   build: ./web
+  restart: always
   ports:
     - "8080:80"
   volumes:
     - drupal_web_var-www:/var/www
     - drupal_web_etc-apache2-sites_enabled:/etc/apache2/sites-enabled
     - drupal_web_etc-apache2-sites_available:/etc/apache2/site-available
+  volumes_from:
+    - php_fpm
 php_fpm:
   build: ./php_fpm
+  restart: always
   volumes:
-    - drupal_web_var-www:/var/www
+    - drupal_web_var-www:/var/www:ro
+    - /docker/order
 varnish:
   build: ./varnish
+  restart: always
   ports:
     - "80:80"
+  volumes_from:
+    - web
 mysql:
   image: mysql
+  restart: always
   environment:
     - MYSQL_ROOT_PASSWORD
   volumes: 
