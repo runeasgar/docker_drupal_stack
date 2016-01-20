@@ -13,6 +13,7 @@ This repository is a work in progress, but I feel it is working well enough for 
 
 ## What you get
 When this is finished running, you will have 4 networked containers, each running a service: 
+
 | Service | Hostname | Network Port | Host Port |
 | ------------- | ------------- |:-------------:|:-------------:|
 | Varnish | drupal_varnish_1 | 80 | 80 |
