@@ -1,43 +1,48 @@
 # Docker Drupal Stack
 
 ## About
-This repository is a work in progress, but I feel it is working well enough for beta! It is intended to launch a set of Docker containers that comprise all the basics of Drupal 8 hosting: Varnish, Web (Apache), PHP (FPM), and MySQL. It also includes, vim, git, drush, and Drupal console.
+This docker compose project launches a set of Docker containers that comprise all the basics of Drupal 8 hosting: Varnish, Web (Apache), PHP (FPM), and MySQL. It also includes some essential utilities, such as: vim, git, drush, and Drupal console. The primary use case is to run Drupal on a relatively small VPS service, such as DigitalOcean.
 
-## Quick Start
-1. Install [docker](https://docs.docker.com/engine/installation/) and [docker compose](https://docs.docker.com/compose/install/), clone this repository, and change into the repository directory.
-2. `git clone git@github.com:runeasgar/docker_drupal_stack.git && cd docker_drupal_stack`
-3. `export MYSQL_ROOT_PASSWORD=whatever`.
-  * It's important to note that MySQL will store this password as a part of its database(s), in a docker volume (mysql/data on the host). Hence, rebuilding or recreating the MySQL container will not affect this password - not even if you change this environment variable.
-4. `docker-compose -p drupal --x-networking up -d`.
-  * You may have to run this more than once, because Docker Compose does not spin up containers in a pre-determined order.
+## Prerequisites
+* [docker](https://docs.docker.com/engine/installation/)
+* [docker compose](https://docs.docker.com/compose/install/).
+* Know that this will bind Varnish to port 80 on the docker host. You can modify docker-compose.yml if you want to change the port to something else.
 
-## What you get
-When this is finished running, you will have 4 networked containers, each running a service: 
+## One-line Quick Start
+`export MYSQL_ROOT_PASSWORD=YOUR_PASSWORD_HERE && git clone git@github.com:runeasgar/docker_drupal_stack.git && cd docker_drupal_stack && docker-compose -p drupal --x-networking up -d`
 
-| Service | Hostname | Network Port | Host Port |
+**If some of your containers fail to start** (you can check with `docker-compose ps`), run `docker-compose -p drupal --x-networking up -d` again. There's a known [dependency issue](https://github.com/docker/compose/pull/2708) with Docker Compose.
+
+*It's important to note that MySQL will store the password as a part of its database(s), in a persistent docker volume. Rebuilding or recreating the MySQL container will not affect this password - not even if you change this environment variable.*
+
+## What You Get
+
+| Service | Container Name / Hostname | Network Port | Host Port |
 | ------------- | ------------- |:-------------:|:-------------:|
-| Varnish | drupal_varnish_1 | 80 | 80 |
-| Apache | drupal-web_1 | 80 | 8080 |
-| PHP-FPM | drupal_php_fpm_1 | | 9000 |
-| MySQL | drupal_mysql_1 | | 3306 |
+| varnish | drupal_varnish_1 | 80 | 80 |
+| web | drupal-web_1 | 80 | 8080 |
+| php_fpm | drupal_php_fpm_1 | | 9000 |
+| mysql | drupal_mysql_1 | | 3306 |
 
-| First Header  | Second Header |
+## Now that you have your stack
+* You can set up Drupal 8, which is pre-installed on the web at /var/www/html. You'll need to [create a MySQL database](https://www.drupal.org/documentation/install/create-database#mysql_command) and user for it. Specify `@'%'` for your database users, since your database server is technically "remote".
+* [Manage](https://help.ubuntu.com/lts/serverguide/httpd.html) your Apache server if you want to create additional sites. To disable the default site, move /etc/apache2/sites-enabled/0000-default.conf to sites-available. Do NOT remove /var/www/html (I have a script that relies on its existence).
+
+## Basic docker and docker-compose commands
+
+| Command | Action |
 | ------------- | ------------- |
-| Content Cell  | Content Cell  |
-| Content Cell  | Content Cell  |
+| `docker-compose ps` | see the status of all project containers |
+| `docker-compose stop` | stop all project containers  |
+| `docker-compose restart` | restart all project containers |
+| `docker-compose start` | start all project containers |
+| `docker exec -it CONTAINER_NAME command arg1 arg2 | run a command in the specified container |
+| `docker exec -it CONTAINER_NAME bash | open a shell to the specified container |
+| `docker --help` | get help with docker commands |
+| `docker-compose --help` | get help with docker-compose commands |
 
-| Left-Aligned  | Center Aligned  | Right Aligned |
-| :------------ |:---------------:| -----:|
-| col 3 is      | some wordy text | $1600 |
-| col 2 is      | centered        |   $12 |
-| zebra stripes | are neat        |    $1 |
-
-## Next steps
-Once your containers are all running, you can:
-* Set up Drupal 8, which is pre-installed for you. The code is at /var/www/, and is served as the default site.
-* Don't forget to [create MySQL databases](https://www.drupal.org/documentation/install/create-database#mysql_commands) needed by your Drupal sites (including the pre-installed site).
-  * You'll need to create MySQL users `@'%'` because Drupal will connect from the IP of the web, not MySQL.
-* [Manage](https://help.ubuntu.com/lts/serverguide/httpd.html) your Apache server to create additional sites.
-  * If you want to disable the default site, move /etc/apache2/sites-enabled/0000-default.conf to sites-available. Do NOT remove /var/www/html - it will mess up the entrypoint.sh script.
+## Docker Documentation
+* [Docker User Guide](https://docs.docker.com/engine/userguide/)
+* [Overview of Docker Compose](https://docs.docker.com/compose/)
 
 See the "Issues" tab for a list of known issues and future improvements.
