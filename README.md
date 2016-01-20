@@ -25,6 +25,12 @@ When this is finished running, you will have 4 networked containers, each runnin
 | Content Cell  | Content Cell  |
 | Content Cell  | Content Cell  |
 
+| Left-Aligned  | Center Aligned  | Right Aligned |
+| :------------ |:---------------:| -----:|
+| col 3 is      | some wordy text | $1600 |
+| col 2 is      | centered        |   $12 |
+| zebra stripes | are neat        |    $1 |
+
 ## Next steps
 Once your containers are all running, you can:
 * Set up Drupal 8, which is pre-installed for you. The code is at /var/www/, and is served as the default site.
