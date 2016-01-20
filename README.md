@@ -13,8 +13,8 @@ This repository is a work in progress, but I feel it is working well enough for 
 
 ## What you get
 When this is finished running, you will have 4 networked containers, each running a service: 
-|Service|Hostname|Network Port|Host Port|
-|-|-|-|-|
+| Service | Hostname | Network Port | Host Port |
+| --- | --- |:---:|:---:|
 |Varnish|drupal_varnish_1|80|80|
 |Apache|drupal-web_1|80|8080|
 |PHP-FPM|drupal_php_fpm_1| |9000|
