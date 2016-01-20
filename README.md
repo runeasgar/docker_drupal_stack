@@ -20,6 +20,11 @@ When this is finished running, you will have 4 networked containers, each runnin
 |PHP-FPM|drupal_php_fpm_1| |9000|
 |MySQL|drupal_mysql_1| |3306|
 
+| First Header  | Second Header |
+| ------------- | ------------- |
+| Content Cell  | Content Cell  |
+| Content Cell  | Content Cell  |
+
 ## Next steps
 Once your containers are all running, you can:
 * Set up Drupal 8, which is pre-installed for you. The code is at /var/www/, and is served as the default site.
