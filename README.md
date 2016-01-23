@@ -41,6 +41,20 @@ This docker compose project launches a set of Docker containers that comprise al
 | `docker --help` | get help with docker commands |
 | `docker-compose --help` | get help with docker-compose commands |
 
+## Using the included scripts + some shortcuts
+Add the following to .bashrc on your docker host, replacing values as indicated:
+
+`# Open a bash shell to service. Usage: dockb servicename`
+`alias dockb='/path/to/repo/scripts/dockb.sh'`
+`# Run a drush command against the default Drupal site`
+`alias drushw='docker exec -it drupal_web_1 drush -r /var/www/html`
+`# Shorthand for docker-compose`
+`alias dockc='docker-compose'`
+`# Stop all project containers and rm them. Optionally remove dangling images and/or volumes`
+`alias dockc-clean='/path/to/repo/scripts/dockc-clean.sh'`
+
+Then, run `source ~/.bashrc` to activate these aliases.
+
 ## Docker Documentation
 * [Docker User Guide](https://docs.docker.com/engine/userguide/)
 * [Overview of Docker Compose](https://docs.docker.com/compose/)

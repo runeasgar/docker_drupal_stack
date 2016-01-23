@@ -23,7 +23,7 @@ varnish:
   volumes_from:
     - web
 mysql:
-  image: mysql
+  build: ./mysql
   restart: always
   environment:
     - MYSQL_ROOT_PASSWORD

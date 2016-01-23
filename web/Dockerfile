@@ -17,6 +17,9 @@ echo "deb-src http://us.archive.ubuntu.com/ubuntu/ trusty-updates multiverse" >>
 # Install ubuntu packages
 RUN /bin/bash -c 'apt-get update && apt-get install wget vim curl bash-completion git php5 libapache2-mod-fastcgi php5-mcrypt php5-gd php5-mysqlnd -y'
 
+# Configure VIM
+RUN /bin/bash -c 'echo "set nocompatible" > ~/.vimrc && echo "set backspace=2" >> ~/.vimrc'
+
 # Install drush
 RUN /bin/bash -c 'wget http://files.drush.org/drush.phar && chmod +x drush.phar && mv drush.phar /usr/local/bin/drush && drush init'
 

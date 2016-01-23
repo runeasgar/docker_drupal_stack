@@ -4,6 +4,9 @@ MAINTAINER Joshua Taylor
 # Install general ubuntu packages
 RUN /bin/bash -c 'apt-get update && apt-get install wget vim curl git -y'
 
+# Configure VIM
+RUN /bin/bash -c 'echo "set nocompatible" > ~/.vimrc && echo "set backspace=2" >> ~/.vimrc'
+
 # Install Varnish
 RUN /bin/bash -c 'apt-get install apt-transport-https && curl https://repo.varnish-cache.org/GPG-key.txt | apt-key add - && \
 echo "deb https://repo.varnish-cache.org/ubuntu/ trusty varnish-4.1" >> /etc/apt/sources.list.d/varnish-cache.list && \
