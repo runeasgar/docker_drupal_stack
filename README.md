@@ -46,6 +46,8 @@ Add the following to .bashrc on your docker host, replacing values as indicated:
 
 `# Open a bash shell to service. Usage: dockb servicename`
 `alias dockb='/path/to/repo/scripts/dockb.sh'`
+`# Get resource usage stats on all project containers`
+`alias docks='docker stats drupal_varnish_1 drupal_web_1 drupal_php_fpm_1 drupal_mysql_1'`
 `# Run a drush command against the default Drupal site`
 `alias drushw='docker exec -it drupal_web_1 drush -r /var/www/html`
 `# Shorthand for docker-compose`
