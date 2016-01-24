@@ -33,8 +33,6 @@ RUN /bin/bash -c 'curl https://drupalconsole.com/installer -L -o drupal.phar && 
 RUN /bin/bash -c 'echo source \"$HOME/.console/console.rc\" 2>/dev/null'
 
 # Add default files
-# This is a dumb way to deal with apache2.conf, since all I really need to do is AllowOverride All on /var/www.. fix this!
-ADD ./apache2.conf /etc/apache2/apache2.conf
 ADD ./php5-fpm.conf /etc/apache2/conf-available/php5-fpm.conf
 ADD ./.gitconfig /root/.gitconfig
 ADD ./entrypoint.sh /entrypoint.sh
@@ -42,8 +40,8 @@ ADD ./entrypoint.sh /entrypoint.sh
 RUN /bin/bash -c 'chmod u+x /entrypoint.sh'
 # Work with apache mods after php5-fpm.conf created
 RUN /bin/bash -c 'a2dismod mpm_prefork mpm_event && a2enmod rewrite actions fastcgi alias mpm_worker && a2enconf php5-fpm'
-# apache.conf changes have to happen after the file is added
-RUN /bin/bash -c 'printf "KeepAlive On\nKeepAliveTimeout 2000\nHostnameLookups Off" >> /etc/apache2/apache2.conf'
+# apache.conf changes
+RUN /bin/bash -c 'sed -i "166 s/None/All/" /etc/apache2/apache2.conf && sed -i "s/KeepAliveTimeout 5/KeepAliveTimeout 2/" /etc/apache2/apache2.conf'
 
 # Set the working directory when you shell into the server
 WORKDIR /var/www
