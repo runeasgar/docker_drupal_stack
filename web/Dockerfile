@@ -19,7 +19,7 @@ RUN /bin/bash -c 'echo "set nocompatible" > ~/.vimrc && echo "set backspace=2" >
 # END STUFF THAT RARELY CHANGES
 
 # Install container-specific ubuntu packages
-RUN /bin/bash -c 'apt-get install php5-cli libapache2-mod-fastcgi -y'
+RUN /bin/bash -c 'apt-get install apache2 php5-cli libapache2-mod-fastcgi -y'
 
 # CONFIGURATION
 # Install drush & prepare files for default Drupal site (installed by ENTRYPOINT)
@@ -31,8 +31,6 @@ RUN /bin/bash -c 'cp /etc/apache2/sites-enabled/000-default.conf /root/'
 RUN /bin/bash -c 'curl https://drupalconsole.com/installer -L -o drupal.phar && mv drupal.phar /usr/local/bin/drupal && chmod +x /usr/local/bin/drupal && drupal init --override'
 # Enable autocompletion
 RUN /bin/bash -c 'echo source \"$HOME/.console/console.rc\" 2>/dev/null'
-# Enable Apache mods
-RUN /bin/bash -c 'a2dismod php5 mpm_prefork && a2enmod rewrite actions fastcgi alias mpm_worker && a2enconf php5-fpm'
 
 # Add default files
 # This is a dumb way to deal with apache2.conf, since all I really need to do is AllowOverride All on /var/www.. fix this!
@@ -42,9 +40,10 @@ ADD ./.gitconfig /root/.gitconfig
 ADD ./entrypoint.sh /entrypoint.sh
 # Fix perms on entry script
 RUN /bin/bash -c 'chmod u+x /entrypoint.sh'
-
+# Work with apache mods after php5-fpm.conf created
+RUN /bin/bash -c 'a2dismod mpm_prefork mpm_event && a2enmod rewrite actions fastcgi alias mpm_worker && a2enconf php5-fpm'
 # apache.conf changes have to happen after the file is added
-RUN /bin/bash -c 'echo "KeepAlive On\nKeepAliveTimeout 2000\nHostnameLookups Off" >> /etc/apache2/apache2.conf'
+RUN /bin/bash -c 'printf "KeepAlive On\nKeepAliveTimeout 2000\nHostnameLookups Off" >> /etc/apache2/apache2.conf'
 
 # Set the working directory when you shell into the server
 WORKDIR /var/www
