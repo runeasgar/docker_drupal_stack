@@ -31,5 +31,8 @@ mv /root/000-default.conf /etc/apache2/sites-enabled/
 
 fi
 
+# Start webmin
+service webmin start
+
 # Run Apache
 /usr/sbin/apache2ctl -D FOREGROUND

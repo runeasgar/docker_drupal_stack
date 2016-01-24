@@ -9,17 +9,25 @@ RUN /bin/bash -c '\
 echo "deb http://us.archive.ubuntu.com/ubuntu/ trusty multiverse" >> /etc/apt/sources.list && \
 echo "deb-src http://us.archive.ubuntu.com/ubuntu/ trusty multiverse" >> /etc/apt/sources.list && \
 echo "deb http://us.archive.ubuntu.com/ubuntu/ trusty-updates multiverse" >> /etc/apt/sources.list && \
-echo "deb-src http://us.archive.ubuntu.com/ubuntu/ trusty-updates multiverse" >> /etc/apt/srouces.list'
+echo "deb-src http://us.archive.ubuntu.com/ubuntu/ trusty-updates multiverse" >> /etc/apt/sources.list && \
+echo "deb http://download.webmin.com/download/repository sarge contrib" >> /etc/apt/sources.list'
 # Update apt-get after adding repositories
 RUN /bin/bash -c 'apt-get update'
 # Install common packages
 RUN /bin/bash -c 'apt-get install wget vim curl bash-completion git -y'
+# Get a key for webmin
+RUN /bin/bash -c 'wget -q http://www.webmin.com/jcameron-key.asc -O- | sudo apt-key add -'
 # Configure VIM
 RUN /bin/bash -c 'echo "set nocompatible" > ~/.vimrc && echo "set backspace=2" >> ~/.vimrc'
 # END STUFF THAT RARELY CHANGES
 
 # Install container-specific ubuntu packages
 RUN /bin/bash -c 'apt-get install apache2 php5-cli libapache2-mod-fastcgi -y'
+
+# Isolating webmin for now since it's taking so much effort to get working
+RUN /bin/bash -c 'rm /etc/apt/apt.conf.d/docker-gzip-indexes'
+RUN /bin/bash -c 'apt-get update'
+RUN /bin/bash -c 'apt-get install apt-show-versions webmin -y'
 
 # CONFIGURATION
 # Install drush & prepare files for default Drupal site (installed by ENTRYPOINT)

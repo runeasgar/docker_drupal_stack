@@ -1,12 +1,10 @@
 # Docker Drupal Stack
 
-This docker compose project launches a set of Docker containers that comprise all the basics of Drupal 8 hosting: Varnish, Web (Apache), PHP (FPM), and MySQL. It also includes some essential utilities, such as: vim, git, drush, and Drupal console. The primary use case is to run Drupal on a relatively small VPS service, such as DigitalOcean.
+This docker compose project launches a set of Docker containers that comprise all the basics of Drupal 8 hosting: Varnish, Web (Apache), PHP (FPM), and MySQL. It also includes some essential utilities, such as: webmin, vim, git, drush, and Drupal console. The primary use case is to run Drupal on a relatively small VPS service, such as DigitalOcean.
 
 ## Prerequisites
 * [docker](https://docs.docker.com/engine/installation/)
 * [docker compose](https://docs.docker.com/compose/install/)
-* Know that this will bind Varnish to port 80 on the docker host.
-  * You can modify docker-compose.yml if you want to change the port to something else.
 
 ## One-Line Quick Start
 `export MYSQL_ROOT_PASSWORD=YOUR_PASSWORD_HERE && git clone git@github.com:runeasgar/docker_drupal_stack.git && cd docker_drupal_stack && docker-compose -p drupal --x-networking up -d`
@@ -20,13 +18,20 @@ This docker compose project launches a set of Docker containers that comprise al
 | Service | Container Name / Hostname | Network Port | Host Port |
 | ------------- | ------------- |:-------------:|:-------------:|
 | varnish | drupal_varnish_1 | 80 | 80 |
-| web | drupal-web_1 | 80 | 8080 |
+| web | drupal_web_1 | 80 | 8080 |
+| webmin\* | drupal_web_1 | 10000 | 10000 |
 | php_fpm | drupal_php_fpm_1 | 9000 | |
 | mysql | drupal_mysql_1 | 3306 | |
+
+\* *Note that webmin is not a docker service - it runs as part of the web service.*
 
 ## Now that you have your stack
 * You can set up Drupal 8, which is pre-installed on the web at `/var/www/html`. You'll need to [create a MySQL database](https://www.drupal.org/documentation/install/create-database#mysql_command) and user for it. Specify `@'%'` for your database users, since your database server is technically "remote".
 * [Manage](https://help.ubuntu.com/lts/serverguide/httpd.html) your Apache server if you want to create additional sites. To disable the default site, move /etc/apache2/sites-enabled/0000-default.conf to sites-available. Do NOT remove /var/www/html (I have a script that relies on its existence).
+  * BETA: You can do this with webmin! It's running on port 10000 (use https). You'll need to create a user for it:
+    * `docker exec -it drupal_web_1 bash`
+    * `adduser webmin`
+    * `adduser webmin sudo`
 
 ## Basic docker and docker-compose commands
 

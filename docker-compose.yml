@@ -3,6 +3,7 @@ web:
   restart: always
   ports:
     - "8080:80"
+    - "10000:10000"
   volumes:
     - drupal_web_var-www:/var/www
     - drupal_web_etc-apache2-sites_enabled:/etc/apache2/sites-enabled
