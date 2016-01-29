@@ -30,3 +30,7 @@ mysql:
     - MYSQL_ROOT_PASSWORD
   volumes: 
     - drupal_mysql_var-lib-mysql:/var/lib/mysql
+rsyslog:
+  build: ./rsyslog
+  volumes:
+    - drupal_rsyslog_var-log-drupal_stack:/var/log/drupal_stack
