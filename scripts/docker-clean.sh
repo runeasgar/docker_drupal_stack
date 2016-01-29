@@ -1,10 +1,11 @@
 #!/bin/bash
-docker-compose stop
-docker-compose rm
-
-while getopts “iv” OPTION
+while getopts “riv” OPTION
 do
      case $OPTION in
+         r)
+             docker-compose stop
+             docker-compose rm
+             ;;
          i)
              docker rmi $(docker images -f "dangling=true" -q)
              ;;

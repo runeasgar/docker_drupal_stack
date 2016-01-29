@@ -2,6 +2,8 @@
 
 This docker compose project launches a set of Docker containers that comprise all the basics of Drupal 8 hosting: Varnish, Web (Apache), PHP (FPM), and MySQL. It also includes some essential utilities, such as: webmin, vim, git, drush, and Drupal console. The primary use case is to run Drupal on a relatively small VPS service, such as DigitalOcean.
 
+The latest stable version is tagged 1.6-beta.
+
 ## Prerequisites
 * [docker](https://docs.docker.com/engine/installation/)
 * [docker compose](https://docs.docker.com/compose/install/)
@@ -53,13 +55,13 @@ Add the following to .bashrc on your docker host, replacing values as indicated:
 # Open a bash shell to service. Usage: dockb servicename
 alias dockb='/path/to/repo/scripts/dockb.sh'
 # Get resource usage stats on all project containers
-alias docks='docker stats drupal_varnish_1 drupal_web_1 drupal_php_fpm_1 drupal_mysql_1'
+alias dockcs='docker stats drupal_varnish_1 drupal_web_1 drupal_php_fpm_1 drupal_mysql_1'
 # Run a drush command against the default Drupal site
 alias drushw='docker exec -it drupal_web_1 drush -r /var/www/html'
 # Shorthand for docker-compose
 alias dockc='docker-compose'
-# Stop all project containers and rm them. Optionally remove dangling images and/or volumes
-alias dockc-clean='/path/to/repo/scripts/dockc-clean.sh'
+# With -r, stop and remove all project containers, with -i remove all dangling images, with -v remove all dangling volumes
+alias docker-clean='/path/to/repo/scripts/docker-clean.sh'
 ```
 
 Then, run `source ~/.bashrc` to activate these aliases.
