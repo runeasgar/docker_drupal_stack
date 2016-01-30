@@ -16,7 +16,7 @@ php_fpm:
   restart: always
   volumes:
     - drupal_web_var-www:/var/www
-    - /docker/order
+    - docker_order:/docker/order
 varnish:
   build: ./varnish
   restart: always
