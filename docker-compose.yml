@@ -8,6 +8,7 @@ web:
     - drupal_web_var-www:/var/www
     - drupal_web_etc-apache2-sites_enabled:/etc/apache2/sites-enabled
     - drupal_web_etc-apache2-sites_available:/etc/apache2/site-available
+    - drupal_web_root_ssh:/root/.ssh
   volumes_from:
     - php_fpm
 php_fpm:
