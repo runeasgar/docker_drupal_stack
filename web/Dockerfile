@@ -15,6 +15,12 @@ echo "deb http://download.webmin.com/download/repository sarge contrib" >> /etc/
 RUN /bin/bash -c 'apt-get update'
 # Install common packages
 RUN /bin/bash -c 'apt-get install wget vim curl bash-completion git -y'
+# Tool for adding repos
+RUN /bin/bash -c 'apt-get install software-properties-common python-software-properties -y'
+# Add repositories
+RUN /bin/bash -c 'add-apt-repository ppa:ondrej/php5'
+# Update apt-get after adding repositories
+RUN /bin/bash -c 'apt-get update'
 # Get a key for webmin
 RUN /bin/bash -c 'wget -q http://www.webmin.com/jcameron-key.asc -O- | sudo apt-key add -'
 # Configure VIM
@@ -22,7 +28,7 @@ RUN /bin/bash -c 'echo "set nocompatible" > ~/.vimrc && echo "set backspace=2" >
 # END STUFF THAT RARELY CHANGES
 
 # Install container-specific ubuntu packages
-RUN /bin/bash -c 'apt-get install apache2 php5-cli libapache2-mod-fastcgi -y'
+RUN /bin/bash -c 'apt-get --force-yes install apache2 php5-cli php5-mysqlnd mysql-client libapache2-mod-fastcgi -y'
 
 # Isolating webmin for now since it's taking so much effort to get working
 RUN /bin/bash -c 'rm /etc/apt/apt.conf.d/docker-gzip-indexes'
@@ -32,7 +38,8 @@ RUN /bin/bash -c 'apt-get install apt-show-versions webmin -y'
 # CONFIGURATION
 # Install drush & prepare files for default Drupal site (installed by ENTRYPOINT)
 # This is all back to back to enable docker image layer caching during builds, since downloading Drupal is a relatively lengthy operation
-RUN /bin/bash -c 'wget http://files.drush.org/drush.phar && chmod +x drush.phar && mv drush.phar /usr/local/bin/drush && drush init'
+RUN /bin/bash -c 'wget http://files.drush.org/drush.phar && chmod +x drush.phar && mv drush.phar /usr/local/bin/drush'
+# && drush init -y' this is not working for some reason
 RUN /bin/bash -c 'drush dl --destination=/root drupal && shopt -s dotglob && mv /root/drupal-8.*.* /root/drupal && shopt -u dotglob'
 RUN /bin/bash -c 'cp /etc/apache2/sites-enabled/000-default.conf /root/'
 # Install Drupal console
